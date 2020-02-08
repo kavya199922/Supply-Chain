@@ -4,6 +4,7 @@ contract SupplyChain{
   
  
     uint pku=0;
+    //to know the order status
     enum Status{ OrderCreated,Distribution,ShippingStarts,ShippingEnds,Pharmacy
 }
 modifier onlyDistributor(uint _pku){
@@ -27,16 +28,17 @@ modifier onlyShippingCompany(uint _pku){
     _;
 }
 struct Order{
-    //orderid
+  
     string DrugName;
     uint256 DrugID;
     address Manufacturer;
     address ShippingCompany;
     address[] Distributor;//array of distributors
     address Pharmacy;
-   // address Customer;
+   
     Status status;
 }
+//mapping pku with order
 mapping(uint=>Order) track;
 Order[]   orders;
 
@@ -47,17 +49,7 @@ function getOrders(uint256 _pku) public view returns(string,uint256,address,addr
 function CreateOrder(string _drugname,uint256 _drugid,address _ShippingCompany,address _distributor) public  {
    
             
-         //  track[++pku]=Order(_drugname,_drugid,msg.sender,_ShippingCompany,_distributor,0x0,Status.OrderCreated);
-            //   Order memory order;
-            //   order.DrugName=_drugname;
-            //   order.DrugID=_drugid;
-            //   order.Manufacturer=msg.sender;
-            //   order.ShippingCompany=_ShippingCompany;
-            //   order.Pharmacy=0x0;
-            //   order.status=Status.OrderCreated;
-            //   orders.push(order);
-            //   orders[orders.length-1].Distributor.push(_distributor);
-            //   track[++pku]=order;
+      
             track[++pku].DrugName=_drugname;
             track[pku].DrugID=_drugid;
             track[pku].Manufacturer=msg.sender;
